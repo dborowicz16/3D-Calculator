@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const App = () => {
   const [result, setResult] = useState(0);
@@ -6,10 +6,6 @@ const App = () => {
   const [calculation, setCalculation] = useState('');
   const [showCurrentDigit, setShowCurrentDigit] = useState(false);
   const [clearPressCount, setClearPressCount] = useState(0);
-
-  useEffect(() => {
-    console.log('calculation', calculation)
-  }, [calculation]);
 
   // AC button appears under these conditions
   const isAllClear = (calculation === '' || clearPressCount > 0);
@@ -36,7 +32,7 @@ const App = () => {
     setShowCurrentDigit(true);
   }
 
-  // Evaluates the expression string
+  // Evaluates the expression string and displays the result
   const calculateResult = () => {
     setResult(eval(calculation));
     setShowCurrentDigit(false);
@@ -58,12 +54,12 @@ const App = () => {
   const toggleSign = () => {
     if (currentDigit >= 0) {
       const calculationWithoutCurrentDigit = calculation.substring(0, getCurrentDigitStartIndex());
-      setCurrentDigit(`-${currentDigit}`)
+      setCurrentDigit(`-${currentDigit}`);
       setCalculation(calculationWithoutCurrentDigit + `(-${currentDigit})`);
     } else {
       const calculationWithoutCurrentDigit = calculation.substring(0, getCurrentDigitStartIndex() - 2);
       setCurrentDigit(Math.abs(currentDigit));
-      setCalculation(calculationWithoutCurrentDigit + `${Math.abs(currentDigit)}`)
+      setCalculation(calculationWithoutCurrentDigit + `${Math.abs(currentDigit)}`);
     }
   }
 
